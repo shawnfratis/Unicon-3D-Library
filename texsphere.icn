@@ -1,0 +1,73 @@
+############################################################################
+#
+#	File:     texsphere.icn
+#
+#	Subject:  Program to make textured sphere
+#
+#	Author:   Shawn Fratis (shawnfratis@gmail.com)
+#
+#	Date:     July 5, 2020
+#
+############################################################################
+#
+#   This file is in the public domain.
+#
+############################################################################
+#
+#   This procedure creates a sphere with image texture.
+#
+############################################################################
+
+procedure main()
+
+  w:= open("textured sphere", "gl", "size=600,600", "bg=black", "buffer=on") | stop("Can't Open 3D window\n")
+
+  WAttrib(w, "slices=45", "rings=45" )
+    
+  WAttrib(w,"texmode=on","texture=1.png")
+
+  PushMatrix(w)
+
+  Rotate(w,90,1.0,0.0,0.0)
+  
+  DrawSphere(w,1,1,1,1)
+
+  PopMatrix(w)
+
+  Eye(w, 0,2,8, 2,0,0, 0,1,0)
+
+  Refresh(w)
+
+ Event(w)
+
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

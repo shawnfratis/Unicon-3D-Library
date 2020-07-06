@@ -1,0 +1,2344 @@
+############################################################################
+#
+#	File:	  noglshapes.icn
+#
+#	Subject:  Program to animate shapes
+#
+#	Author:   Shawn Fratis (shawnfratis@gmail.com)
+#
+#	Date:	  July 5, 2020
+#
+############################################################################
+#
+#   This file is in the public domain.
+#
+############################################################################
+#
+#  This program animates various shapes by moving the mouse.
+#  NOTE: This doesn't use OpenGL.  
+#
+############################################################################
+
+link wopen
+link graphics
+
+procedure main()
+
+WOpen("label=no GL shapes","width=600","height=300","fg=yellow","bg=black")| stop("*** Fail")
+
+WAttrib("dx="||300, "dy="||150)
+
+WWrite("Press and drag left mouse button to get things moving!")
+
+main3()
+
+end
+
+procedure main3()
+
+circle()
+
+repeat {
+
+while back(ax,ay) do {
+
+if ax <:= 500 then
+calc()
+
+else
+
+return 
+
+}
+}
+
+end
+
+procedure circle()
+
+x := 1
+y := 1
+r := 100
+
+Fg("yellow")
+
+DrawCircle(x,y,r)
+
+end
+
+######################################################
+
+procedure back(ax,ay)
+
+repeat {
+
+case Event() of {
+&ldrag:{
+
+animatedModule01(&x,&y,&x)
+
+WDelay(15)
+
+EraseArea()
+
+circle()
+
+}
+}
+}
+
+end
+
+##################################################################################
+
+procedure animatedModule01(aa,bb,cc)
+
+megastructure01(aa,bb,cc+200)
+megastructure01(aa+100,bb-100,cc-150)
+megastructure01(aa+200,bb-200,cc-200)
+megastructure01(aa+300,bb-300,cc-250)
+
+megastructure01(aa,bb,cc-200)
+megastructure01(aa-100,bb+100,cc-250)
+megastructure01(aa-200,bb+200,cc-300)
+megastructure01(aa-300,bb+300,cc-350)
+
+megastructure01(aa,bb,cc-200)
+megastructure01(aa+300,bb+100,cc-250)
+megastructure01(aa+400,bb+200,cc-300)
+megastructure01(aa+500,bb+300,cc-350)
+
+megastructure02(aa,bb,cc-200)
+megastructure02(aa+200,bb+100,cc-250)
+megastructure02(aa+300,bb+200,cc-300)
+megastructure02(aa+400,bb+300,cc-350)
+
+#supermesh01(aa,bb,cc) #floor
+#aniplane02(aa-150,bb-400,cc-100) #roof
+#cube02(aa-630,bb-200,cc-55) #walls
+#cube01(aa-280,bb+200,cc-122) #computer
+#cube01(aa-395,bb+200,cc-122) #computer
+#cube01(aa-500,bb+200,cc-122) #computer
+#cube01(aa-545,bb+200,cc-100) #computer
+#cube04(aa-600,bb+200,cc-100) #table01
+#cube03(aa-470,bb+200,cc-119) #table02
+#cube05(aa-470,bb+85,cc-119) #monitor
+#cube05(aa-400,bb+85,cc-119) #monitor
+#cube05(aa-320,bb+85,cc-119) #monitor
+#cube06(aa-120,bb+145,cc-119) #shelf
+
+end
+
+procedure spokes(x, y, r, i, angle)
+   local incr, j
+
+   incr := 2 * &pi / i 
+
+   every j := 1 to i do {
+      DrawLine(x, y, x + r * cos(angle), y + r * sin(angle))
+      angle +:= incr
+      }
+
+   return
+
+end
+
+procedure megastructure01(axa,bxb,cxc)
+
+cube01(100+axa,100+bxb,50+cxc)
+cube01(125+axa,50+bxb,60+cxc)
+cube01(150+axa,25+bxb,70+cxc)
+cube01(175+axa,1+bxb,80+cxc)
+
+end
+
+procedure megastructure02(axa,bxb,cxc)
+
+cube03(100+axa,100+bxb,50+cxc)
+cube03(125+axa,50+bxb,60+cxc)
+cube03(150+axa,25+bxb,70+cxc)
+cube03(175+axa,1+bxb,80+cxc)
+
+end
+
+procedure supermesh01(xdd,xgg,xzz)
+
+bz := 1+xzz
+
+###########################################
+
+(ya1 := 300+xgg,ya2 := 300+xgg,ya3 := 300+xgg,ya4 := 300+xgg,ya5 := 300+xgg,ya6 := 300+xgg,ya7 := 300+xgg,ya8 := 300+xgg,ya9 := 300+xgg)
+(ya10 := 300+xgg,ya11 := 300+xgg)
+
+(ya12 := 300+xgg,ya13 := 300+xgg,ya14 := 300+xgg,ya15 := 300+xgg,ya16 := 300+xgg,ya17 := 300+xgg,ya18 := 300+xgg,ya19 := 300+xgg,ya20 := 300+xgg)
+(ya21 := 300+xgg)
+
+#############################################
+
+(yb1 := 300+xgg,yb2 := 300+xgg,yb3 := 300+xgg,yb4 := 300+xgg,yb5 := 300+xgg,yb6 := 300+xgg,yb7 := 300+xgg,yb8 := 300+xgg,yb9 := 300+xgg)
+(yb10 := 300+xgg,yb11 := 300+xgg)
+
+(yb12 := 300+xgg,yb13 := 300+xgg,yb14 := 300+xgg,yb15 := 300+xgg,yb16 := 300+xgg,yb17 := 300+xgg,yb18 := 300+xgg,yb19 := 300+xgg,yb20 := 300+xgg)
+(yb21 := 300+xgg)
+
+#############################################
+
+(yc1 := 300+xgg,yc2 := 300+xgg,yc3 := 300+xgg,yc4 := 300+xgg,yc5 := 300+xgg,yc6 := 300+xgg,yc7 := 300+xgg,yc8 := 300+xgg,yc9 := 300+xgg)
+(yc10 := 300+xgg,yc11 := 300+xgg)
+
+(yc12 := 300+xgg,yc13 := 300+xgg,yc14 := 300+xgg,yc15 := 300+xgg,yc16 := 300+xgg,yc17 := 300+xgg,yc18 := 300+xgg,yc19 := 300+xgg,yc20 := 300+xgg)
+(yc21 := 300+xgg)
+
+#############################################
+
+(yd1 := 300+xgg,yd2 := 300+xgg,yd3 := 300+xgg,yd4 := 300+xgg,yd5 := 300+xgg,yd6 := 300+xgg,yd7 := 300+xgg,yd8 := 300+xgg,yd9 := 300+xgg)
+(yd10 := 300+xgg,yd11 := 300+xgg)
+
+(yd12 := 300+xgg,yd13 := 300+xgg,yd14 := 300+xgg,yd15 := 300+xgg,yd16 := 300+xgg,yd17 := 300+xgg,yd18 := 300+xgg,yd19 := 300+xgg,yd20 := 300+xgg)
+(yd21 := 300+xgg)
+
+#############################################
+
+(ye1 := 300+xgg,ye2 := 300+xgg,ye3 := 300+xgg,ye4 := 300+xgg,ye5 := 300+xgg,ye6 := 300+xgg,ye7 := 300+xgg,ye8 := 300+xgg,ye9 := 300+xgg)
+(ye10 := 300+xgg,ye11 := 300+xgg)
+
+(ye12 := 300+xgg,ye13 := 300+xgg,ye14 := 300+xgg,ye15 := 300+xgg,ye16 := 300+xgg,ye17 := 300+xgg,ye18 := 300+xgg,ye19 := 300+xgg,ye20 := 300+xgg)
+(ye21 := 300+xgg)
+
+#############################################
+
+(yf1 := 300+xgg,yf2 := 300+xgg,yf3 := 300+xgg,yf4 := 300+xgg,yf5 := 300+xgg,yf6 := 300+xgg,yf7 := 300+xgg,yf8 := 300+xgg,yf9 := 300+xgg)
+(yf10 := 300+xgg,yf11 := 300+xgg)
+
+(yf12 := 300+xgg,yf13 := 300+xgg,yf14 := 300+xgg,yf15 := 300+xgg,yf16 := 300+xgg,yf17 := 300+xgg,yf18 := 300+xgg,yf19 := 300+xgg,yf20 := 300+xgg)
+(yf21 := 300+xgg)
+
+#############################################
+
+(yg1 := 300+xgg,yg2 := 300+xgg,yg3 := 300+xgg,yg4 := 300+xgg,yg5 := 300+xgg,yg6 := 300+xgg,yg7 := 300+xgg,yg8 := 300+xgg,yg9 := 300+xgg)
+(yg10 := 300+xgg,yg11 := 300+xgg)
+
+(yg12 := 300+xgg,yg13 := 300+xgg,yg14 := 300+xgg,yg15 := 300+xgg,yg16 := 300+xgg,yg17 := 300+xgg,yg18 := 300+xgg,yg19 := 300+xgg,yg20 := 300+xgg)
+(yg21 := 300+xgg)
+
+##############################################################
+
+(ya1111 := 300+xgg,ya22 := 300+xgg,ya33 := 300+xgg,ya44 := 300+xgg,ya55 := 300+xgg,ya66 := 300+xgg,ya77 := 300+xgg,ya88 := 300+xgg,ya99 := 300+xgg)
+(ya110 := 300+xgg,ya111 := 300+xgg)
+
+(yb1111 := 300+xgg,yb22 := 300+xgg,yb33 := 300+xgg,yb44 := 300+xgg,yb55 := 300+xgg,yb66 := 300+xgg,yb77 := 300+xgg,yb88 := 300+xgg,yb99 := 300+xgg)
+(yb110 := 300+xgg,yb111 := 300+xgg)
+
+(yc1111 := 300+xgg,yc22 := 300+xgg,yc33 := 300+xgg,yc44 := 300+xgg,yc55 := 300+xgg,yc66 := 300+xgg,yc77 := 300+xgg,yc88 := 300+xgg,yc99 := 300+xgg)
+(yc110 := 300+xgg,yc111 := 300+xgg)
+
+(yd1111 := 300+xgg,yd22 := 300+xgg,yd33 := 300+xgg,yd44 := 300+xgg,yd55 := 300+xgg,yd66 := 300+xgg,yd77 := 300+xgg,yd88 := 300+xgg,yd99 := 300+xgg)
+(yd110 := 300+xgg,yd111 := 300+xgg)
+
+(ye1111 := 300+xgg,ye22 := 300+xgg,ye33 := 300+xgg,ye44 := 300+xgg,ye55 := 300+xgg,ye66 := 300+xgg,ye77 := 300+xgg,ye88 := 300+xgg,ye99 := 300+xgg)
+(ye110 := 300+xgg,ye111 := 300+xgg)
+
+(yf1111 := 300+xgg,yf22 := 300+xgg,yf33 := 300+xgg,yf44 := 300+xgg,yf55 := 300+xgg,yf66 := 300+xgg,yf77 := 300+xgg,yf88 := 300+xgg,yf99 := 300+xgg)
+(yf110 := 300+xgg,yf111 := 300+xgg)
+
+(yg1111 := 300+xgg,yg22 := 300+xgg,yg33 := 300+xgg,yg44 := 300+xgg,yg55 := 300+xgg,yg66 := 300+xgg,yg77 := 300+xgg,yg88 := 300+xgg,yg99 := 300+xgg)
+(yg110 := 300+xgg,yg111 := 300+xgg)
+
+######################################################
+
+(xa1:= -1000+xdd,xa2:= -900+xdd,xa3:= -800+xdd,xa4:= -700+xdd,xa5:= -600+xdd,xa6:= -500+xdd,xa7:= -400+xdd,xa8:= -300+xdd,xa9:= -200+xdd,xa10:= -100+xdd,xa11:=1+xdd)
+(xa12:=100+xdd,xa13:=200+xdd,xa14:=300+xdd,xa15:=400+xdd,xa16:=500+xdd,xa17:=600+xdd,xa18:=700+xdd,xa19:=800+xdd,xa20:=900+xdd,xa21:=1000+xdd)
+
+(xb1:= -1000+xdd,xb2:= -900+xdd,xb3:= -800+xdd,xb4:= -700+xdd,xb5:= -600+xdd,xb6:= -500+xdd,xb7:= -400+xdd,xb8:= -300+xdd,xb9:= -200+xdd,xb10:= -100+xdd,xb11:=1+xdd)
+(xb12:=100+xdd,xb13:=200+xdd,xb14:=300+xdd,xb15:=400+xdd,xb16:=500+xdd,xb17:=600+xdd,xb18:=700+xdd,xb19:=800+xdd,xb20:=900+xdd,xb21:=1000+xdd)
+
+(xc1:= -1000+xdd,xc2:= -900+xdd,xc3:= -800+xdd,xc4:= -700+xdd,xc5:= -600+xdd,xc6:= -500+xdd,xc7:= -400+xdd,xc8:= -300+xdd,xc9:= -200+xdd,xc10:= -100+xdd,xc11:=1+xdd)
+(xc12:=100+xdd,xc13:=200+xdd,xc14:=300+xdd,xc15:=400+xdd,xc16:=500+xdd,xc17:=600+xdd,xc18:=700+xdd,xc19:=800+xdd,xc20:=900+xdd,xc21:=1000+xdd)
+
+(xd1:= -1000+xdd,xd2:= -900+xdd,xd3:= -800+xdd,xd4:= -700+xdd,xd5:= -600+xdd,xd6:= -500+xdd,xd7:= -400+xdd,xd8:= -300+xdd,xd9:= -200+xdd,xd10:= -100+xdd,xd11:=1+xdd)
+(xd12:=100+xdd,xd13:=200+xdd,xd14:=300+xdd,xd15:=400+xdd,xd16:=500+xdd,xd17:=600+xdd,xd18:=700+xdd,xd19:=800+xdd,xd20:=900+xdd,xd21:=1000+xdd)
+
+(xe1:= -1000+xdd,xe2:= -900+xdd,xe3:= -800+xdd,xe4:= -700+xdd,xe5:= -600+xdd,xe6:= -500+xdd,xe7:= -400+xdd,xe8:= -300+xdd,xe9:= -200+xdd,xe10:= -100+xdd,xe11:=1+xdd)
+(xe12:=100+xdd,xe13:=200+xdd,xe14:=300+xdd,xe15:=400+xdd,xe16:=500+xdd,xe17:=600+xdd,xe18:=700+xdd,xe19:=800+xdd,xe20:=900+xdd,xe21:=1000+xdd)
+
+(xf1:= -1000+xdd,xf2:= -900+xdd,xf3:= -800+xdd,xf4:= -700+xdd,xf5:= -600+xdd,xf6:= -500+xdd,xf7:= -400+xdd,xf8:= -300+xdd,xf9:= -200+xdd,xf10:= -100+xdd,xf11:=1+xdd)
+(xf12:=100+xdd,xf13:=200+xdd,xf14:=300+xdd,xf15:=400+xdd,xf16:=500+xdd,xf17:=600+xdd,xf18:=700+xdd,xf19:=800+xdd,xf20:=900+xdd,xf21:=1000+xdd)
+
+(xg1:= -1000+xdd,xg2:= -900+xdd,xg3:= -800+xdd,xg4:= -700+xdd,xg5:= -600+xdd,xg6:= -500+xdd,xg7:= -400+xdd,xg8:= -300+xdd,xg9:= -200+xdd,xg10:= -100+xdd,xg11:=1+xdd)
+(xg12:=100+xdd,xg13:=200+xdd,xg14:=300+xdd,xg15:=400+xdd,xg16:=500+xdd,xg17:=600+xdd,xg18:=700+xdd,xg19:=800+xdd,xg20:=900+xdd,xg21:=1000+xdd)
+
+##############
+
+(az1 := 100,az2 := 300,az3 := 400,az4 := 500,az5 := 600,az6 := 700,az7 := 800,az8 := 900,az9 := 500,az10 := 550)
+(az11 := 1000,az12 := 1100,az13 := 1200,az14 := 1300,az15 := 1400,az16 := 1500,az17 := 1600,az18 := 1700,az19 := 1800,az20 := 1900,az21 := 2000)
+
+######################################################
+
+duk := ("15535,19689,15000")
+dad := ("34612,32767,32767")
+daq := ("12767,10922,10922")
+daz := ("26385,25461,25461")
+
+######################################################
+
+xq1 := (xa1 * bz/az7) 
+xq2 := (xa2 * bz/az7) 
+xq3 := (xa3 * bz/az7) 
+xq4 := (xa4 * bz/az7) 
+xq5 := (xa5 * bz/az7)
+xq6 := (xa6 * bz/az7) 
+xq7 := (xa7 * bz/az7)
+xq8 := (xa8 * bz/az7)
+xq9 := (xa9 * bz/az7) 
+xq10 := (xa10 * bz/az7) 
+xq11 := (xa11 * bz/az7)
+xq12 := (xa12 * bz/az7) 
+xq13 := (xa13 * bz/az7)
+xq14 := (xa14 * bz/az7) 
+xq15 := (xa15 * bz/az7)  
+xq16 := (xa16 * bz/az7) 
+xq17 := (xa17 * bz/az7)  
+xq18 := (xa18 * bz/az7) 
+xq19 := (xa19 * bz/az7)  
+xq20 := (xa20 * bz/az7) 
+xq21 := (xa21 * bz/az7)      
+
+xm1 := (xb1 * bz/az6) 
+xm2 := (xb2 * bz/az6) 
+xm3 := (xb3 * bz/az6) 
+xm4 := (xb4 * bz/az6) 
+xm5 := (xb5 * bz/az6)
+xm6 := (xb6 * bz/az6) 
+xm7 := (xb7 * bz/az6)
+xm8 := (xb8 * bz/az6)
+xm9 := (xb9 * bz/az6) 
+xm10 := (xb10 * bz/az6) 
+xm11 := (xb11 * bz/az6)
+xm12 := (xa12 * bz/az6) 
+xm13 := (xb13 * bz/az6)
+xm14 := (xb14 * bz/az6) 
+xm15 := (xb15 * bz/az6)  
+xm16 := (xb16 * bz/az6) 
+xm17 := (xb17 * bz/az6)  
+xm18 := (xb18 * bz/az6) 
+xm19 := (xb19 * bz/az6)  
+xm20 := (xb20 * bz/az6) 
+xm21 := (xb21 * bz/az6)     
+
+xl1 := (xc1 * bz/az5) 
+xl2 := (xc2 * bz/az5) 
+xl3 := (xc3 * bz/az5) 
+xl4 := (xc4 * bz/az5) 
+xl5 := (xc5 * bz/az5)
+xl6 := (xc6 * bz/az5) 
+xl7 := (xc7 * bz/az5)
+xl8 := (xc8 * bz/az5)
+xl9 := (xc9 * bz/az5) 
+xl10 := (xc10 * bz/az5) 
+xl11 := (xc11 * bz/az5)
+xl12 := (xc12 * bz/az5) 
+xl13 := (xc13 * bz/az5)
+xl14 := (xc14 * bz/az5) 
+xl15 := (xc15 * bz/az5)  
+xl16 := (xc16 * bz/az5) 
+xl17 := (xc17 * bz/az5)  
+xl18 := (xc18 * bz/az5) 
+xl19 := (xc19 * bz/az5)  
+xl20 := (xc20 * bz/az5) 
+xl21 := (xc21 * bz/az5)   
+
+xp1 := (xd1 * bz/az4) 
+xp2 := (xd2 * bz/az4) 
+xp3 := (xd3 * bz/az4) 
+xp4 := (xd4 * bz/az4) 
+xp5 := (xd5 * bz/az4)
+xp6 := (xd6 * bz/az4) 
+xp7 := (xd7 * bz/az4)
+xp8 := (xd8 * bz/az4)
+xp9 := (xd9 * bz/az4) 
+xp10 := (xd10 * bz/az4) 
+xp11 := (xd11 * bz/az4)
+xp12 := (xd12 * bz/az4) 
+xp13 := (xd13 * bz/az4)
+xp14 := (xd14 * bz/az4) 
+xp15 := (xd15 * bz/az4)  
+xp16 := (xd16 * bz/az4) 
+xp17 := (xd17 * bz/az4)  
+xp18 := (xd18 * bz/az4) 
+xp19 := (xd19 * bz/az4)  
+xp20 := (xd20 * bz/az4) 
+xp21 := (xd21 * bz/az4)   
+
+xn1 := (xe1 * bz/az3) 
+xn2 := (xe2 * bz/az3) 
+xn3 := (xe3 * bz/az3) 
+xn4 := (xe4 * bz/az3) 
+xn5 := (xe5 * bz/az3)
+xn6 := (xe6 * bz/az3) 
+xn7 := (xe7 * bz/az3)
+xn8 := (xe8 * bz/az3)
+xn9 := (xe9 * bz/az3) 
+xn10 := (xe10 * bz/az3) 
+xn11 := (xe11 * bz/az3)
+xn12 := (xe12 * bz/az3) 
+xn13 := (xe13 * bz/az3)
+xn14 := (xe14 * bz/az3) 
+xn15 := (xe15 * bz/az3)  
+xn16 := (xe16 * bz/az3) 
+xn17 := (xe17 * bz/az3)  
+xn18 := (xe18 * bz/az3) 
+xn19 := (xe19 * bz/az3)  
+xn20 := (xe20 * bz/az3) 
+xn21 := (xe21 * bz/az3)   
+
+xo1 := (xf1 * bz/az2) 
+xo2 := (xf2 * bz/az2) 
+xo3 := (xf3 * bz/az2) 
+xo4 := (xf4 * bz/az2) 
+xo5 := (xf5 * bz/az2)
+xo6 := (xf6 * bz/az2) 
+xo7 := (xf7 * bz/az2)
+xo8 := (xf8 * bz/az2)
+xo9 := (xf9 * bz/az2) 
+xo10 := (xf10 * bz/az2) 
+xo11 := (xf11 * bz/az2)
+xo12 := (xf12 * bz/az2) 
+xo13 := (xf13 * bz/az2)
+xo14 := (xf14 * bz/az2) 
+xo15 := (xf15 * bz/az2)  
+xo16 := (xf16 * bz/az2) 
+xo17 := (xf17 * bz/az2)  
+xo18 := (xf18 * bz/az2) 
+xo19 := (xf19 * bz/az2)  
+xo20 := (xf20 * bz/az2) 
+xo21 := (xf21 * bz/az2)   
+
+xj1 := (xg1 * bz/az1) 
+xj2 := (xg2 * bz/az1) 
+xj3 := (xg3 * bz/az1) 
+xj4 := (xg4 * bz/az1) 
+xj5 := (xg5 * bz/az1)
+xj6 := (xg6 * bz/az1) 
+xj7 := (xg7 * bz/az1)
+xj8 := (xg8 * bz/az1)
+xj9 := (xg9 * bz/az1) 
+xj10 := (xg10 * bz/az1) 
+xj11 := (xg11 * bz/az1)
+xj12 := (xg12 * bz/az1) 
+xj13 := (xg13 * bz/az1)
+xj14 := (xg14 * bz/az1) 
+xj15 := (xg15 * bz/az1)  
+xj16 := (xg16 * bz/az1) 
+xj17 := (xg17 * bz/az1)  
+xj18 := (xg18 * bz/az1) 
+xj19 := (xg19 * bz/az1)  
+xj20 := (xg20 * bz/az1) 
+xj21 := (xg21 * bz/az1)   
+
+yq1 := (ya1 * bz/az7) 
+yq2 := (ya2 * bz/az7) 
+yq3 := (ya3 * bz/az7) 
+yq4 := (ya4 * bz/az7) 
+yq5 := (ya5 * bz/az7)
+yq6 := (ya6 * bz/az7) 
+yq7 := (ya7 * bz/az7)
+yq8 := (ya8 * bz/az7)
+yq9 := (ya9 * bz/az7) 
+yq10 := (ya10 * bz/az7) 
+yq11 := (ya11 * bz/az7)
+yq12 := (ya12 * bz/az7) 
+yq13 := (ya13 * bz/az7)
+yq14 := (ya14 * bz/az7) 
+yq15 := (ya15 * bz/az7)  
+yq16 := (ya16 * bz/az7) 
+yq17 := (ya17 * bz/az7)  
+yq18 := (ya18 * bz/az7) 
+yq19 := (ya19 * bz/az7)  
+yq20 := (ya20 * bz/az7) 
+yq21 := (ya21 * bz/az7)   
+
+ym1 := (yb1 * bz/az6) 
+ym2 := (yb2 * bz/az6) 
+ym3 := (yb3 * bz/az6) 
+ym4 := (yb4 * bz/az6) 
+ym5 := (yb5 * bz/az6)
+ym6 := (yb6 * bz/az6) 
+ym7 := (yb7 * bz/az6)
+ym8 := (yb8 * bz/az6)
+ym9 := (yb9 * bz/az6) 
+ym10 := (yb10 * bz/az6) 
+ym11 := (yb11 * bz/az6)
+ym12 := (yb12 * bz/az6) 
+ym13 := (yb13 * bz/az6)
+ym14 := (yb14 * bz/az6) 
+ym15 := (yb15 * bz/az6)  
+ym16 := (yb16 * bz/az6) 
+ym17 := (yb17 * bz/az6)  
+ym18 := (yb18 * bz/az6) 
+ym19 := (yb19 * bz/az6)  
+ym20 := (yb20 * bz/az6) 
+ym21 := (yb21 * bz/az6)   
+
+yl1 := (yc1 * bz/az5) 
+yl2 := (yc2 * bz/az5) 
+yl3 := (yc3 * bz/az5) 
+yl4 := (yc4 * bz/az5) 
+yl5 := (yc5 * bz/az5)
+yl6 := (yc6 * bz/az5) 
+yl7 := (yc7 * bz/az5)
+yl8 := (yc8 * bz/az5)
+yl9 := (yc9 * bz/az5) 
+yl10 := (yc10 * bz/az5) 
+yl11 := (yc11 * bz/az5)
+yl12 := (yc12 * bz/az5) 
+yl13 := (yc13 * bz/az5)
+yl14 := (yc14 * bz/az5) 
+yl15 := (yc15 * bz/az5)  
+yl16 := (yc16 * bz/az5) 
+yl17 := (yc17 * bz/az5)  
+yl18 := (yc18 * bz/az5) 
+yl19 := (yc19 * bz/az5)  
+yl20 := (yc20 * bz/az5) 
+yl21 := (yc21 * bz/az5)   
+
+yp1 := (yd1 * bz/az4) 
+yp2 := (yd2 * bz/az4) 
+yp3 := (yd3 * bz/az4) 
+yp4 := (yd4 * bz/az4) 
+yp5 := (yd5 * bz/az4)
+yp6 := (yd6 * bz/az4) 
+yp7 := (yd7 * bz/az4)
+yp8 := (yd8 * bz/az4)
+yp9 := (yd9 * bz/az4) 
+yp10 := (yd10 * bz/az4) 
+yp11 := (yd11 * bz/az4) 
+yp12 := (yd12 * bz/az4) 
+yp13 := (yd13 * bz/az4)
+yp14 := (yd14 * bz/az4) 
+yp15 := (yd15 * bz/az4)  
+yp16 := (yd16 * bz/az4) 
+yp17 := (yd17 * bz/az4)  
+yp18 := (yd18 * bz/az4) 
+yp19 := (yd19 * bz/az4)  
+yp20 := (yd20 * bz/az4) 
+yp21 := (yd21 * bz/az4)  
+
+yn1 := (ye1 * bz/az3) 
+yn2 := (ye2 * bz/az3) 
+yn3 := (ye3 * bz/az3) 
+yn4 := (ye4 * bz/az3) 
+yn5 := (ye5 * bz/az3)
+yn6 := (ye6 * bz/az3) 
+yn7 := (ye7 * bz/az3)
+yn8 := (ye8 * bz/az3)
+yn9 := (ye9 * bz/az3) 
+yn10 := (ye10 * bz/az3) 
+yn11 := (ye11 * bz/az3)
+yn12 := (ye12 * bz/az3) 
+yn13 := (ye13 * bz/az3)
+yn14 := (ye14 * bz/az3) 
+yn15 := (ye15 * bz/az3)  
+yn16 := (ye16 * bz/az3) 
+yn17 := (ye17 * bz/az3)  
+yn18 := (ye18 * bz/az3) 
+yn19 := (ye19 * bz/az3)  
+yn20 := (ye20 * bz/az3) 
+yn21 := (ye21 * bz/az3)   
+
+yo1 := (yf1 * bz/az2) 
+yo2 := (yf2 * bz/az2) 
+yo3 := (yf3 * bz/az2) 
+yo4 := (yf4 * bz/az2) 
+yo5 := (yf5 * bz/az2)
+yo6 := (yf6 * bz/az2) 
+yo7 := (yf7 * bz/az2)
+yo8 := (yf8 * bz/az2)
+yo9 := (yf9 * bz/az2) 
+yo10 := (yf10 * bz/az2) 
+yo11 := (yf11 * bz/az2)
+yo12 := (yf12 * bz/az2) 
+yo13 := (yf13 * bz/az2)
+yo14 := (yf14 * bz/az2) 
+yo15 := (yf15 * bz/az2)  
+yo16 := (yf16 * bz/az2) 
+yo17 := (yf17 * bz/az2)  
+yo18 := (yf18 * bz/az2) 
+yo19 := (yf19 * bz/az2)  
+yo20 := (yf20 * bz/az2) 
+yo21 := (yf21 * bz/az2)   
+
+yj1 := (yg1 * bz/az1) 
+yj2 := (yg2 * bz/az1) 
+yj3 := (yg3 * bz/az1) 
+yj4 := (yg4 * bz/az1) 
+yj5 := (yg5 * bz/az1)
+yj6 := (yg6 * bz/az1) 
+yj7 := (yg7 * bz/az1)
+yj8 := (yg8 * bz/az1)
+yj9 := (yg9 * bz/az1) 
+yj10 := (yg10 * bz/az1) 
+yj11 := (yg11 * bz/az1) 
+yj12 := (yg12 * bz/az1) 
+yj13 := (yg13 * bz/az1)
+yj14 := (yg14 * bz/az1) 
+yj15 := (yg15 * bz/az1)  
+yj16 := (yg16 * bz/az1) 
+yj17 := (yg17 * bz/az1)  
+yj18 := (yg18 * bz/az1) 
+yj19 := (yg19 * bz/az1)  
+yj20 := (yg20 * bz/az1) 
+yj21 := (yg21 * bz/az1)  
+
+######################################################
+
+Fg(duk)
+#1
+ FillPolygon(xq1,yq1,xq2,yq2,xm2,ym2,xm1,ym1)
+
+Fg(dad)
+#2  
+ FillPolygon(xq2,yq2,xq3,yq3,xm3,ym3,xm2,ym2)
+
+Fg(daq)
+#3  
+ FillPolygon(xq3,yq3,xq4,yq4,xm4,ym4,xm3,ym3)
+
+Fg(daz)
+#4  
+ FillPolygon(xq4,yq4,xq5,yq5,xm5,ym5,xm4,ym4)
+
+Fg(duk)
+#5
+ FillPolygon(xq5,yq5,xq6,yq6,xm6,ym6,xm5,ym5)
+
+Fg(dad)
+#6  
+ FillPolygon(xq6,yq6,xq7,yq7,xm7,ym7,xm6,ym6)
+
+Fg(daq)
+#7
+ FillPolygon(xq7,yq7,xq8,yq8,xm8,ym8,xm7,ym7)
+
+Fg(daz)
+#8  
+ FillPolygon(xq8,yq8,xq9,yq9,xm9,ym9,xm8,ym8)
+
+Fg(duk)
+#9  
+ FillPolygon(xq9,yq9,xq10,yq10,xm10,ym10,xm9,ym9)
+
+Fg(dad)
+#10  
+ FillPolygon(xq10,yq10,xq11,yq11,xm11,ym11,xm10,ym10)
+
+Fg(duk)
+#11
+ FillPolygon(xq11,yq11,xq12,yq12,xm12,ym12,xm11,ym11)  
+
+Fg(dad)
+#12  
+ FillPolygon(xq12,yq12,xq13,yq13,xm13,ym13,xm12,ym12)
+
+Fg(duk)
+#13
+ FillPolygon(xq13,yq13,xq14,yq14,xm14,ym14,xm13,ym13)
+
+Fg(dad)
+#14  
+ FillPolygon(xq14,yq14,xq15,yq15,xm15,ym15,xm14,ym14)
+
+Fg(daq)
+#15  
+ FillPolygon(xq15,yq15,xq16,yq16,xm16,ym16,xm15,ym15)
+
+Fg(daz)
+#16  
+ FillPolygon(xq16,yq16,xq17,yq17,xm17,ym17,xm16,ym16)
+
+Fg(duk)
+#17
+ FillPolygon(xq17,yq17,xq18,yq18,xm18,ym18,xm17,ym17)
+
+Fg(dad)
+#18  
+ FillPolygon(xq18,yq18,xq19,yq19,xm19,ym19,xm18,ym18)
+Fg(daq)
+#19
+ FillPolygon(xq19,yq19,xq20,yq20,xm20,ym20,xm19,ym19)
+
+Fg(daz)
+#20  
+ FillPolygon(xq20,yq20,xq21,yq21,xm21,ym21,xm20,ym20)
+
+#Fg(duq)
+#21  
+# FillPolygon(xq21,yq21,xq22,yq22,xm22,ym22,xm21,ym21)
+
+######################################################
+
+Fg(dad)
+#1
+ FillPolygon(xm1,ym1,xm2,ym2,xl2,yl2,xl1,yl1)
+
+Fg(daq)
+#2  
+ FillPolygon(xm2,ym2,xm3,ym3,xl3,yl3,xl2,yl2)
+
+Fg(daz)
+#3  
+ FillPolygon(xm3,ym3,xm4,ym4,xl4,yl4,xl3,yl3)
+
+Fg(duk)
+#4  
+ FillPolygon(xm4,ym4,xm5,ym5,xl5,yl5,xl4,yl4)
+
+Fg(dad)
+#5
+ FillPolygon(xm5,ym5,xm6,ym6,xl6,yl6,xl5,yl5)
+
+Fg(daq)
+#6  
+ FillPolygon(xm6,ym6,xm7,ym7,xl7,yl7,xl6,yl6)
+
+Fg(daz)
+#7
+ FillPolygon(xm7,ym7,xm8,ym8,xl8,yl8,xl7,yl7)
+
+Fg(duk)
+#8  
+ FillPolygon(xm8,ym8,xm9,ym9,xl9,yl9,xl8,yl8)
+
+Fg(dad)
+#9  
+ FillPolygon(xm9,ym9,xm10,ym10,xl10,yl10,xl9,yl9)
+
+Fg(daq)
+#10  
+ FillPolygon(xm10,ym10,xm11,ym11,xl11,yl11,xl10,yl10)
+
+Fg(daz)
+#11
+ FillPolygon(xm11,ym11,xm12,ym12,xl12,yl12,xl11,yl11)  
+
+Fg(duk)
+#12  
+ FillPolygon(xm12,ym12,xm13,ym13,xl13,yl13,xl12,yl12)
+
+Fg(dad)
+#13
+ FillPolygon(xm13,ym13,xm14,ym14,xl14,yl14,xl13,yl13)
+
+Fg(daq)
+#14  
+ FillPolygon(xm14,ym14,xm15,ym15,xl15,yl15,xl14,yl14)
+
+Fg(daz)
+#15  
+ FillPolygon(xm15,ym15,xm16,ym16,xl16,yl16,xl15,yl15)
+
+Fg(duk)
+#16  
+ FillPolygon(xm16,ym16,xm17,ym17,xl17,yl17,xl16,yl16)
+
+Fg(dad)
+#17
+ FillPolygon(xm17,ym17,xm18,ym18,xl18,yl18,xl17,yl17)
+
+Fg(daq)
+#18  
+ FillPolygon(xm18,ym18,xm19,ym19,xl19,yl19,xl18,yl18)
+Fg(daz)
+#19
+ FillPolygon(xm19,ym19,xm20,ym20,xl20,yl20,xl19,yl19)
+
+Fg(duk)
+#20  
+ FillPolygon(xm20,ym20,xm21,ym21,xl21,yl21,xl20,yl20)
+
+#Fg(dad)
+#21  
+# FillPolygon(xm21,ym21,xm22,ym22,xl22,yl22,xl21,yl21)
+
+######################################################
+
+Fg(daq)
+#1
+ FillPolygon(xl1,yl1,xl2,yl2,xp2,yp2,xp1,yp1)
+
+Fg(daz)
+#2  
+ FillPolygon(xl2,yl2,xl3,yl3,xp3,yp3,xp2,yp2)
+
+Fg(duk)
+#3  
+ FillPolygon(xl3,yl3,xl4,yl4,xp4,yp4,xp3,yp3)
+
+Fg(dad)
+#4  
+ FillPolygon(xl4,yl4,xl5,yl5,xp5,yp5,xp4,yp4)
+
+Fg(daq)
+#5
+ FillPolygon(xl5,yl5,xl6,yl6,xp6,yp6,xp5,yp5)
+
+Fg(daz)
+#6  
+ FillPolygon(xl6,yl6,xl7,yl7,xp7,yp7,xp6,yp6)
+
+Fg(duk)
+#7
+ FillPolygon(xl7,yl7,xl8,yl8,xp8,yp8,xp7,yp7)
+
+Fg(dad)
+#8  
+ FillPolygon(xl8,yl8,xl9,yl9,xp9,yp9,xp8,yp8)
+
+Fg(daq)
+#9  
+ FillPolygon(xl9,yl9,xl10,yl10,xp10,yp10,xp9,yp9)
+
+Fg(daz)
+#10  
+ FillPolygon(xl10,yl10,xl11,yl11,xp11,yp11,xp10,yp10)
+
+Fg(duk)
+#11
+ FillPolygon(xl11,yl11,xl12,yl12,xp12,yp12,xp11,yp11)  
+
+Fg(dad)
+#12  
+ FillPolygon(xl12,yl12,xl13,yl13,xp13,yp13,xp12,yp12)
+
+Fg(daq)
+#13
+ FillPolygon(xl13,yl13,xl14,yl14,xp14,yp14,xp13,yp13)
+
+Fg(daz)
+#14  
+ FillPolygon(xl14,yl14,xl15,yl15,xp15,yp15,xp14,yp14)
+
+Fg(duk)
+#15  
+ FillPolygon(xl15,yl15,xl16,yl16,xp16,yp16,xp15,yp15)
+
+Fg(dad)
+#16  
+ FillPolygon(xl16,yl16,xl17,yl17,xp17,yp17,xp16,yp16)
+
+Fg(daq)
+#17
+ FillPolygon(xl17,yl17,xl18,yl18,xp18,yp18,xp17,yp17)
+
+Fg(daz)
+#18  
+ FillPolygon(xl18,yl18,xl19,yl19,xp19,yp19,xp18,yp18)
+
+Fg(duk)
+#19
+ FillPolygon(xl19,yl19,xl20,yl20,xp20,yp20,xp19,yp19)
+
+Fg(dad)
+#20  
+ FillPolygon(xl20,yl20,xl21,yl21,xp21,yp21,xp20,yp20)
+
+#Fg(daq)
+#21  
+# FillPolygon(xl21,yl21,xl22,yl22,xp22,yp22,xp21,yp21)
+
+
+######################################################
+
+Fg(dad)
+#1
+ FillPolygon(xp1,yp1,xp2,yp2,xn2,yn2,xn1,yn1)
+
+Fg(daz)
+#2  
+ FillPolygon(xp2,yp2,xp3,yp3,xn3,yn3,xn2,yn2)
+
+Fg(duk)
+#3  
+ FillPolygon(xp3,yp3,xp4,yp4,xn4,yn4,xn3,yn3)
+
+Fg(dad)
+#4  
+ FillPolygon(xp4,yp4,xp5,yp5,xn5,yn5,xn4,yn4)
+
+Fg(daq)
+#5
+ FillPolygon(xp5,yp5,xp6,yp6,xn6,yn6,xn5,yn5)
+
+Fg(daz)
+#6  
+ FillPolygon(xp6,yp6,xp7,yp7,xn7,yn7,xn6,yn6)
+
+Fg(duk)
+#7
+ FillPolygon(xp7,yp7,xp8,yp8,xn8,yn8,xn7,yn7)
+
+Fg(dad)
+#8  
+ FillPolygon(xp8,yp8,xp9,yp9,xn9,yn9,xn8,yn8)
+
+Fg(daq)
+#9  
+ FillPolygon(xp9,yp9,xp10,yp10,xn10,yn10,xn9,yn9)
+
+Fg(daz)
+#10  
+ FillPolygon(xp10,yp10,xp11,yp11,xn11,yn11,xn10,yn10)
+
+Fg(duk)
+#11
+ FillPolygon(xp11,yp11,xp12,yp12,xn12,yn12,xn11,yn11)  
+
+Fg(dad)
+#12  
+ FillPolygon(xp12,yp12,xp13,yp13,xn13,yn13,xn12,yn12)
+
+Fg(daq)
+#13
+ FillPolygon(xp13,yp13,xp14,yp14,xn14,yn14,xn13,yn13)
+
+Fg(daz)
+#14  
+ FillPolygon(xp14,yp14,xp15,yp15,xn15,yn15,xn14,yn14)
+
+Fg(duk)
+#15  
+ FillPolygon(xp15,yp15,xp16,yp16,xn16,yn16,xn15,yn15)
+
+Fg(daq)
+#16  
+ FillPolygon(xp16,yp16,xp17,yp17,xn17,yn17,xn16,yn16)
+
+Fg(dad)
+#17
+ FillPolygon(xp17,yp17,xp18,yp18,xn18,yn18,xn17,yn17)
+
+Fg(daz)
+#18  
+ FillPolygon(xp18,yp18,xp19,yp19,xn19,yn19,xn18,yn18)
+
+Fg(duk)
+#19
+ FillPolygon(xp19,yp19,xp20,yp20,xn20,yn20,xn19,yn19)
+
+Fg(daq)
+#20  
+ FillPolygon(xp20,yp20,xp21,yp21,xn21,yn21,xn20,yn20)
+
+#Fg(dad)
+#21  
+# FillPolygon(xp21,yp21,xp22,yp22,xn22,yn22,xn21,yn21)
+
+
+######################################################
+
+Fg(daz)
+#1
+ FillPolygon(xn1,yn1,xn2,yn2,xo2,yo2,xo1,yo1)
+
+Fg(duk)
+#2  
+ FillPolygon(xn2,yn2,xn3,yn3,xo3,yo3,xo2,yo2)
+
+Fg(dad)
+#3  
+ FillPolygon(xn3,yn3,xn4,yn4,xo4,yo4,xo3,yo3)
+
+Fg(daq)
+#4  
+ FillPolygon(xn4,yn4,xn5,yn5,xo5,yo5,xo4,yo4)
+
+Fg(daz)
+#5
+ FillPolygon(xn5,yn5,xn6,yn6,xo6,yo6,xo5,yo5)
+
+Fg(duk)
+#6  
+ FillPolygon(xn6,yn6,xn7,yn7,xo7,yo7,xo6,yo6)
+
+Fg(dad)
+#7
+ FillPolygon(xn7,yn7,xn8,yn8,xo8,yo8,xo7,yo7)
+
+Fg(daq)
+#8  
+ FillPolygon(xn8,yn8,xn9,yn9,xo9,yo9,xo8,yo8)
+
+Fg(daz)
+#9  
+ FillPolygon(xn9,yn9,xn10,yn10,xo10,yo10,xo9,yo9)
+
+Fg(duk)
+#10  
+ FillPolygon(xn10,yn10,xn11,yn11,xo11,yo11,xo10,yo10)
+
+Fg(daq)
+#11
+ FillPolygon(xn11,yn11,xn12,yn12,xo12,yo12,xo11,yo11)  
+
+Fg(dad)
+#12  
+ FillPolygon(xn12,yn12,xn13,yn13,xo13,yo13,xo12,yo12)
+
+Fg(daz)
+#13
+ FillPolygon(xn13,yn13,xn14,yn14,xo14,yo14,xo13,yo13)
+
+Fg(duk)
+#14  
+ FillPolygon(xn14,yn14,xn15,yn15,xo15,yo15,xo14,yo14)
+
+Fg(daq)
+#15  
+ FillPolygon(xn15,yn15,xn16,yn16,xo16,yo16,xo15,yo15)
+
+Fg(dad)
+#16  
+ FillPolygon(xn16,yn16,xn17,yn17,xo17,yo17,xo16,yo16)
+
+Fg(daz)
+#17
+ FillPolygon(xn17,yn17,xn18,yn18,xo18,yo18,xo17,yo17)
+
+Fg(duk)
+#18  
+ FillPolygon(xn18,yn18,xn19,yn19,xo19,yo19,xo18,yo18)
+
+Fg(daq)
+#19
+ FillPolygon(xn19,yn19,xn20,yn20,xo20,yo20,xo19,yo19)
+
+Fg(dad)
+#20  
+ FillPolygon(xn20,yn20,xn21,yn21,xo21,yo21,xo20,yo20)
+
+#Fg(daz)
+#21  
+# FillPolygon(xn21,yn21,xn22,yn22,xo22,yo22,xo21,yo21)
+
+
+######################################################
+
+Fg(duk)
+#1
+ FillPolygon(xo1,yo1,xo2,yo2,xj2,yj2,xj1,yj1)
+
+Fg(daq)
+#2  
+ FillPolygon(xo2,yo2,xo3,yo3,xj3,yj3,xj2,yj2)
+
+Fg(dad)
+#3  
+ FillPolygon(xo3,yo3,xo4,yo4,xj4,yj4,xj3,yj3)
+
+Fg(daz)
+#4  
+ FillPolygon(xo4,yo4,xo5,yo5,xj5,yj5,xj4,yj4)
+
+Fg(duk)
+#5
+ FillPolygon(xo5,yo5,xo6,yo6,xj6,yj6,xj5,yj5)
+
+Fg(dad)
+#6  
+ FillPolygon(xo6,yo6,xo7,yo7,xj7,yj7,xj6,yj6)
+
+Fg(daq)
+#7
+ FillPolygon(xo7,yo7,xo8,yo8,xj8,yj8,xj7,yj7)
+
+Fg(daz)
+#8  
+ FillPolygon(xo8,yo8,xo9,yo9,xj9,yj9,xj8,yj8)
+
+Fg(duk)
+#9  
+ FillPolygon(xo9,yo9,xo10,yo10,xj10,yj10,xj9,yj9)
+
+Fg(daq)
+#10  
+ FillPolygon(xo10,yo10,xo11,yo11,xj11,yj11,xj10,yj10)
+
+Fg(dad)
+#11
+ FillPolygon(xo11,yo11,xo12,yo12,xj12,yj12,xj11,yj11)  
+
+Fg(daz)
+#12  
+ FillPolygon(xo12,yo12,xo13,yo13,xj13,yj13,xj12,yj12)
+
+Fg(duk)
+#13
+ FillPolygon(xo13,yo13,xo14,yo14,xj14,yj14,xj13,yj13)
+
+Fg(daq)
+#14  
+ FillPolygon(xo14,yo14,xo15,yo15,xj15,yj15,xj14,yj14)
+
+Fg(dad)
+#15  
+ FillPolygon(xo15,yo15,xo16,yo16,xj16,yj16,xj15,yj15)
+
+Fg(daz)
+#16  
+ FillPolygon(xo16,yo16,xo17,yo17,xj17,yj17,xj16,yj16)
+
+Fg(duk)
+#17
+ FillPolygon(xo17,yo17,xo18,yo18,xj18,yj18,xj17,yj17)
+
+Fg(daq)
+#18  
+ FillPolygon(xo18,yo18,xo19,yo19,xj19,yj19,xj18,yj18)
+
+Fg(dad)
+#19
+ FillPolygon(xo19,yo19,xo20,yo20,xj20,yj20,xj19,yj19)
+
+Fg(daz)
+#20  
+ FillPolygon(xo20,yo20,xo21,yo21,xj21,yj21,xj20,yj20)
+
+Fg(duk)
+#21  
+ #FillPolygon(xo21,yo21,xo22,yo22,xj22,yj22,xj21,yj21)
+
+
+end
+
+#end supermesh#######################################################################################################
+
+procedure aniplane02(xdd,xgg,xzz)
+
+bz := 50+xzz
+
+(ya1 := 300+xgg,ya2 := 300+xgg,ya3 := 300+xgg,ya4 := 300+xgg,ya5 := 300+xgg,ya6 := 300+xgg,ya7 := 300+xgg)
+
+(yb1 := 300+xgg,yb2 := 300+xgg,yb3 := 300+xgg,yb4 := 300+xgg,yb5 := 300+xgg,yb6 := 300+xgg,yb7 := 300+xgg)
+
+(yc1 := 300+xgg,yc2 := 300+xgg,yc3 := 300+xgg,yc4 := 300+xgg,yc5 := 300+xgg,yc6 := 300+xgg,yc7 := 300+xgg)
+
+(yd1 := 300+xgg,yd2 := 300+xgg,yd3 := 300+xgg,yd4 := 300+xgg,yd5 := 300+xgg,yd6 := 300+xgg,yd7 := 300+xgg)
+
+(ye1 := 300+xgg,ye2 := 300+xgg,ye3 := 300+xgg,ye4 := 300+xgg,ye5 := 300+xgg,ye6 := 300+xgg,ye7 := 300+xgg)
+
+(yf1 := 300+xgg,yf2 := 300+xgg,yf3 := 300+xgg,yf4 := 300+xgg,yf5 := 300+xgg,yf6 := 300+xgg,yf7 := 300+xgg)
+
+(yg1 := 300+xgg,yg2 := 300+xgg,yg3 := 300+xgg,yg4 := 300+xgg,yg5 := 300+xgg,yg6 := 300+xgg,yg7 := 300+xgg)
+
+######################################################
+
+(xa1 := -900+xdd,xa2 := -600+xdd,xa3 := -300+xdd,xa4 := 1+xdd,xa5 := 300+xdd,xa6 := 600+xdd,xa7 := 900+xdd)
+
+(xb1 := -900+xdd,xb2 := -600+xdd,xb3 := -300+xdd,xb4 := 1+xdd,xb5 := 300+xdd,xb6 := 600+xdd,xb7 := 900+xdd)
+
+(xc1 := -900+xdd,xc2 := -600+xdd,xc3 := -300+xdd,xc4 := 1+xdd,xc5 := 300+xdd,xc6 := 600+xdd,xc7 := 900+xdd)
+
+(xd1 := -900+xdd,xd2 := -600+xdd,xd3 := -300+xdd,xd4 := 1+xdd,xd5 := 300+xdd,xd6 := 600+xdd,xd7 := 900+xdd)
+
+(xe1 := -900+xdd,xe2 := -600+xdd,xe3 := -300+xdd,xe4 := 1+xdd,xe5 := 300+xdd,xe6 := 600+xdd,xe7 := 900+xdd)
+
+(xf1 := -900+xdd,xf2 := -600+xdd,xf3 := -300+xdd,xf4 := 1+xdd,xf5 := 300+xdd,xf6 := 600+xdd,xf7 := 900+xdd)
+
+(xg1 := -900+xdd,xg2 := -600+xdd,xg3 := -300+xdd,xg4 := 1+xdd,xg5 := 300+xdd,xg6 := 600+xdd,xg7 := 900+xdd)
+
+##############
+
+(az1 := 100,az2 := 150,az3 := 200,az4 := 250,az5 := 300,az6 := 350,az7 := 400)
+
+######################################################
+
+duk := ("50000,50000,50000")
+dad := ("40000,40000,40000")
+daq := ("30000,30000,30000")
+daz := ("35000,35000,35000")
+
+######################################################
+
+xq1 := (xa1 * bz/az7) 
+xq2 := (xa2 * bz/az7) 
+xq3 := (xa3 * bz/az7) 
+xq4 := (xa4 * bz/az7) 
+xq5 := (xa5 * bz/az7)
+xq6 := (xa6 * bz/az7) 
+xq7 := (xa7 * bz/az7) 
+
+xm1 := (xb1 * bz/az6) 
+xm2 := (xb2 * bz/az6) 
+xm3 := (xb3 * bz/az6) 
+xm4 := (xb4 * bz/az6) 
+xm5 := (xb5 * bz/az6)
+xm6 := (xb6 * bz/az6) 
+xm7 := (xb7 * bz/az6) 
+
+xl1 := (xc1 * bz/az5) 
+xl2 := (xc2 * bz/az5) 
+xl3 := (xc3 * bz/az5) 
+xl4 := (xc4 * bz/az5) 
+xl5 := (xc5 * bz/az5)
+xl6 := (xc6 * bz/az5) 
+xl7 := (xc7 * bz/az5) 
+
+xp1 := (xd1 * bz/az4) 
+xp2 := (xd2 * bz/az4) 
+xp3 := (xd3 * bz/az4) 
+xp4 := (xd4 * bz/az4) 
+xp5 := (xd5 * bz/az4)
+xp6 := (xd6 * bz/az4) 
+xp7 := (xd7 * bz/az4) 
+
+xn1 := (xe1 * bz/az3) 
+xn2 := (xe2 * bz/az3) 
+xn3 := (xe3 * bz/az3) 
+xn4 := (xe4 * bz/az3) 
+xn5 := (xe5 * bz/az3)
+xn6 := (xe6 * bz/az3) 
+xn7 := (xe7 * bz/az3) 
+
+xo1 := (xf1 * bz/az2) 
+xo2 := (xf2 * bz/az2) 
+xo3 := (xf3 * bz/az2) 
+xo4 := (xf4 * bz/az2) 
+xo5 := (xf5 * bz/az2)
+xo6 := (xf6 * bz/az2) 
+xo7 := (xf7 * bz/az2) 
+
+xj1 := (xg1 * bz/az1) 
+xj2 := (xg2 * bz/az1) 
+xj3 := (xg3 * bz/az1) 
+xj4 := (xg4 * bz/az1) 
+xj5 := (xg5 * bz/az1)
+xj6 := (xg6 * bz/az1) 
+xj7 := (xg7 * bz/az1) 
+
+yq1 := (ya1 * bz/az7) 
+yq2 := (ya2 * bz/az7) 
+yq3 := (ya3 * bz/az7) 
+yq4 := (ya4 * bz/az7) 
+yq5 := (ya5 * bz/az7)
+yq6 := (ya6 * bz/az7) 
+yq7 := (ya7 * bz/az7) 
+
+ym1 := (yb1 * bz/az6) 
+ym2 := (yb2 * bz/az6) 
+ym3 := (yb3 * bz/az6) 
+ym4 := (yb4 * bz/az6) 
+ym5 := (yb5 * bz/az6)
+ym6 := (yb6 * bz/az6) 
+ym7 := (yb7 * bz/az6) 
+
+yl1 := (yc1 * bz/az5) 
+yl2 := (yc2 * bz/az5) 
+yl3 := (yc3 * bz/az5) 
+yl4 := (yc4 * bz/az5) 
+yl5 := (yc5 * bz/az5)
+yl6 := (yc6 * bz/az5) 
+yl7 := (yc7 * bz/az5) 
+
+yp1 := (yd1 * bz/az4) 
+yp2 := (yd2 * bz/az4) 
+yp3 := (yd3 * bz/az4) 
+yp4 := (yd4 * bz/az4) 
+yp5 := (yd5 * bz/az4)
+yp6 := (yd6 * bz/az4) 
+yp7 := (yd7 * bz/az4) 
+
+yn1 := (ye1 * bz/az3) 
+yn2 := (ye2 * bz/az3) 
+yn3 := (ye3 * bz/az3) 
+yn4 := (ye4 * bz/az3) 
+yn5 := (ye5 * bz/az3)
+yn6 := (ye6 * bz/az3) 
+yn7 := (ye7 * bz/az3) 
+
+yo1 := (yf1 * bz/az2) 
+yo2 := (yf2 * bz/az2) 
+yo3 := (yf3 * bz/az2) 
+yo4 := (yf4 * bz/az2) 
+yo5 := (yf5 * bz/az2)
+yo6 := (yf6 * bz/az2) 
+yo7 := (yf7 * bz/az2) 
+
+yj1 := (yg1 * bz/az1) 
+yj2 := (yg2 * bz/az1) 
+yj3 := (yg3 * bz/az1) 
+yj4 := (yg4 * bz/az1) 
+yj5 := (yg5 * bz/az1)
+yj6 := (yg6 * bz/az1) 
+yj7 := (yg7 * bz/az1) 
+
+######################################################
+
+Fg(duk)
+#1
+ FillPolygon(xq1,yq1,xq2,yq2,xm2,ym2,xm1,ym1)
+
+Fg(dad)
+#2  
+ FillPolygon(xq2,yq2,xq3,yq3,xm3,ym3,xm2,ym2)
+
+Fg(daq)
+#3  
+ FillPolygon(xq3,yq3,xq4,yq4,xm4,ym4,xm3,ym3)
+
+Fg(daz)
+#4  
+ FillPolygon(xq4,yq4,xq5,yq5,xm5,ym5,xm4,ym4)
+
+Fg(duk)
+#5
+ FillPolygon(xq5,yq5,xq6,yq6,xm6,ym6,xm5,ym5)
+
+Fg(dad)
+#6  
+ FillPolygon(xq6,yq6,xq7,yq7,xm7,ym7,xm6,ym6)
+
+######################################################
+
+Fg(daq)
+#7
+ FillPolygon(xm1,ym1,xm2,ym2,xl2,yl2,xl1,yl1)
+
+Fg(daz)
+#8  
+ FillPolygon(xm2,ym2,xm3,ym3,xl3,yl3,xl2,yl2)
+
+Fg(duk)
+#9  
+ FillPolygon(xm3,ym3,xm4,ym4,xl4,yl4,xl3,yl3)
+
+Fg(dad)
+#10  
+ FillPolygon(xm4,ym4,xm5,ym5,xl5,yl5,xl4,yl4)
+
+Fg(daq)
+#11
+ FillPolygon(xm5,ym5,xm6,ym6,xl6,yl6,xl5,yl5)
+
+Fg(daz)
+#12  
+ FillPolygon(xm6,ym6,xm7,ym7,xl7,yl7,xl6,yl6)
+
+######################################################
+
+Fg(duk)
+#13
+ FillPolygon(xl1,yl1,xl2,yl2,xp2,yp2,xp1,yp1)
+
+Fg(dad)
+#14  
+ FillPolygon(xl2,yl2,xl3,yl3,xp3,yp3,xp2,yp2)
+
+Fg(daq)
+#15  
+ FillPolygon(xl3,yl3,xl4,yl4,xp4,yp4,xp3,yp3)
+
+Fg(daz)
+#16  
+ FillPolygon(xl4,yl4,xl5,yl5,xp5,yp5,xp4,yp4)
+
+Fg(duk)
+#17
+ FillPolygon(xl5,yl5,xl6,yl6,xp6,yp6,xp5,yp5)
+
+Fg(dad)
+#18  
+ FillPolygon(xl6,yl6,xl7,yl7,xp7,yp7,xp6,yp6)
+
+######################################################
+
+Fg(daq)
+#19
+ FillPolygon(xp1,yp1,xp2,yp2,xn2,yn2,xn1,yn1)
+
+Fg(daz)
+#20  
+ FillPolygon(xp2,yp2,xp3,yp3,xn3,yn3,xn2,yn2)
+
+Fg(duk)
+#21  
+ FillPolygon(xp3,yp3,xp4,yp4,xn4,yn4,xn3,yn3)
+
+Fg(dad)
+#22  
+ FillPolygon(xp4,yp4,xp5,yp5,xn5,yn5,xn4,yn4)
+
+Fg(daq)
+#23
+ FillPolygon(xp5,yp5,xp6,yp6,xn6,yn6,xn5,yn5)
+
+Fg(daz)
+#24  
+ FillPolygon(xp6,yp6,xp7,yp7,xn7,yn7,xn6,yn6)
+
+######################################################
+
+Fg(duk)
+#25
+ FillPolygon(xn1,yn1,xn2,yn2,xo2,yo2,xo1,yo1)
+
+Fg(dad)
+#26  
+ FillPolygon(xn2,yn2,xn3,yn3,xo3,yo3,xo2,yo2)
+
+Fg(daq)
+#27  
+ FillPolygon(xn3,yn3,xn4,yn4,xo4,yo4,xo3,yo3)
+
+Fg(daz)
+#28  
+ FillPolygon(xn4,yn4,xn5,yn5,xo5,yo5,xo4,yo4)
+
+Fg(duk)
+#29
+ FillPolygon(xn5,yn5,xn6,yn6,xo6,yo6,xo5,yo5)
+
+Fg(dad)
+#30  
+ FillPolygon(xn6,yn6,xn7,yn7,xo7,yo7,xo6,yo6)
+
+######################################################
+
+Fg(daq)
+#31
+ FillPolygon(xo1,yo1,xo2,yo2,xj2,yj2,xj1,yj1)
+
+Fg(daz)
+#32  
+ FillPolygon(xo2,yo2,xo3,yo3,xj3,yj3,xj2,yj2)
+
+Fg(duk)
+#33  
+ FillPolygon(xo3,yo3,xo4,yo4,xj4,yj4,xj3,yj3)
+
+Fg(dad)
+#34  
+ FillPolygon(xo4,yo4,xo5,yo5,xj5,yj5,xj4,yj4)
+
+Fg(daq)
+#35
+ FillPolygon(xo5,yo5,xo6,yo6,xj6,yj6,xj5,yj5)
+
+Fg(daz)
+#36  
+ FillPolygon(xo6,yo6,xo7,yo7,xj7,yj7,xj6,yj6)
+
+end
+
+######################################################################
+
+procedure aniskycube01(c,b,a)
+
+xc := 1
+
+bz := a
+az := 50
+cz := 70
+
+#FillPolygon(aax,aay,abx,aby,acx,acy,adx,ady)
+
+(qax := -400 + c,qbx := 400 + c,qcx := 400 + c,qdx := -400 + c,qay := 350 + b,qby := 350 + b,qcy := 50 + b,qdy := 50 + b)
+ 
+(wax := 75 + c,wbx := 75 + c,wcx := 125 + c,wdx := 125 + c,way := 50 + b,wby := 50 + b,wcy := 50 + b,wdy := 50 + b)
+
+(eax := 125 + c,ebx := 125 + c,ecx := 125 + c,edx := 125 + c,eay := 100 + b,eby := 100 + b,ecy := 50 + b,edy := 50 + b)
+
+(rax := 75 + c,rbx := 125 + c,rcx := 125 + c,rdx := 75 + c,ray := 100 + b,rby := 100 + b,rcy := 50 + b,rdy := 50 + b)
+
+(tax := 75 + c,tbx := 75 + c,tcx := 125 + c,tdx := 125 + c,tay := 100 + b,tby := 100 + b,tcy := 100 + b,tdy := 100 + b)
+
+(yax := 125 + c,ybx := 125 + c,ycx := 125 + c,ydx := 125 + c,yay := 100 + b,yby := 100 + b,ycy := 50 + b,ydy := 50 + b)
+
+aax := (qax * bz/az) 
+abx := (qbx * bz/az)
+acx := (qcx * bz/az)
+adx := (qdx * bz/az) 
+
+aay := (qay * bz/az) 
+aby := (qby * bz/az) 
+acy := (qcy * bz/az)
+ady := (qdy * bz/az)
+
+bax := (wax * bz/az)
+bbx := (wbx * bz/cz)
+bcx := (wcx * bz/cz) 
+bdx := (wdx * bz/az) 
+
+bay := (way * bz/az)
+bby := (wby * bz/cz) 
+bcy := (wcy * bz/cz) 
+bdy := (wdy * bz/az)
+
+cax := (eax * bz/az) 
+cbx := (ebx * bz/cz) 
+ccx := (ecx * bz/cz) 
+cdx := (edx * bz/az)
+
+cay := (eay * bz/az) 
+cby := (eby * bz/cz) 
+ccy := (ecy * bz/cz) 
+cdy := (edy * bz/az)
+
+dax := (qax * bz/cz)
+dbx := (qbx * bz/cz)
+dcx := (qcx * bz/cz)
+ddx := (qdx * bz/cz) 
+
+day := (qay * bz/cz) 
+dby := (qby * bz/cz) 
+dcy := (qcy * bz/cz) 
+ddy := (qdy * bz/cz)
+
+eax := (tax * bz/az) 
+ebx := (tbx * bz/cz) 
+ecx := (tcx * bz/cz) 
+edx := (tdx * bz/az) 
+
+eay := (tay * bz/az)
+eby := (tby * bz/cz) 
+ecy := (tcy * bz/cz)
+edy := (tdy * bz/az)
+
+fax := (yax * bz/az) 
+fbx := (ybx * bz/cz) 
+fcx := (ycx * bz/cz)
+fdx := (ydx * bz/az)
+
+fay := (yay * bz/az)
+fby := (yby * bz/cz) 
+fcy := (ycy * bz/cz) 
+fdy := (ydy * bz/az)
+
+
+#Fg("red")
+ #FillPolygon(eax,eay,ebx,eby,ecx,ecy,edx,edy)
+
+#Fg("orange")
+ #FillPolygon(dax,day,dbx,dby,dcx,dcy,ddx,ddy)
+
+Fg("blue")
+  FillPolygon(fax,fay,fbx,fby,fcx,fcy,fdx,fdy)
+
+Fg("yellow")
+ FillPolygon(cax,cay,cbx,cby,ccx,ccy,cdx,cdy)
+
+Fg("2000,2000,50000")
+ FillPolygon(aax,aay,abx,aby,acx,acy,adx,ady)
+
+Fg("cyan")
+ FillPolygon(bax,bay,bbx,bby,bcx,bcy,bdx,bdy)
+
+end
+
+procedure cube01(c,b,a)
+
+xc := 1
+
+bz := a
+az := 100
+cz := 110
+
+(qax := 75 + c,qbx := 125 + c,qcx := 125 + c,qdx := 75 + c,qay := 100 + b,qby := 100 + b,qcy := 50 + b,qdy := 50 + b)
+ 
+(wax := 75 + c,wbx := 75 + c,wcx := 125 + c,wdx := 125 + c,way := 50 + b,wby := 50 + b,wcy := 50 + b,wdy := 50 + b)
+
+(eax := 75 + c,ebx := 75 + c,ecx := 75 + c,edx := 75 + c,eay := 100 + b,eby := 100 + b,ecy := 50 + b,edy := 50 + b)
+
+(rax := 75 + c,rbx := 125 + c,rcx := 125 + c,rdx := 75 + c,ray := 100 + b,rby := 100 + b,rcy := 50 + b,rdy := 50 + b)
+
+(tax := 75 + c,tbx := 75 + c,tcx := 125 + c,tdx := 125 + c,tay := 100 + b,tby := 100 + b,tcy := 100 + b,tdy := 100 + b)
+
+(yax := 125 + c,ybx := 125 + c,ycx := 125 + c,ydx := 125 + c,yay := 100 + b,yby := 100 + b,ycy := 50 + b,ydy := 50 + b)
+
+aax := (qax * bz/az) 
+abx := (qbx * bz/az)
+acx := (qcx * bz/az)
+adx := (qdx * bz/az) 
+
+aay := (qay * bz/az) 
+aby := (qby * bz/az) 
+acy := (qcy * bz/az)
+ady := (qdy * bz/az)
+
+bax := (wax * bz/az)
+bbx := (wbx * bz/cz)
+bcx := (wcx * bz/cz) 
+bdx := (wdx * bz/az) 
+
+bay := (way * bz/az)
+bby := (wby * bz/cz) 
+bcy := (wcy * bz/cz) 
+bdy := (wdy * bz/az)
+
+cax := (eax * bz/az) 
+cbx := (ebx * bz/cz) 
+ccx := (ecx * bz/cz) 
+cdx := (edx * bz/az)
+
+cay := (eay * bz/az) 
+cby := (eby * bz/cz) 
+ccy := (ecy * bz/cz) 
+cdy := (edy * bz/az)
+
+dax := (qax * bz/cz)
+dbx := (qbx * bz/cz)
+dcx := (qcx * bz/cz)
+ddx := (qdx * bz/cz) 
+
+day := (qay * bz/cz) 
+dby := (qby * bz/cz) 
+dcy := (qcy * bz/cz) 
+ddy := (qdy * bz/cz)
+
+eax := (tax * bz/az) 
+ebx := (tbx * bz/cz) 
+ecx := (tcx * bz/cz) 
+edx := (tdx * bz/az) 
+
+eay := (tay * bz/az)
+eby := (tby * bz/cz) 
+ecy := (tcy * bz/cz)
+edy := (tdy * bz/az)
+
+fax := (yax * bz/az) 
+fbx := (ybx * bz/cz) 
+fcx := (ycx * bz/cz)
+fdx := (ydx * bz/az)
+
+fay := (yay * bz/az)
+fby := (yby * bz/cz) 
+fcy := (ycy * bz/cz) 
+fdy := (ydy * bz/az)
+
+
+#Fg("red")
+ #FillPolygon(eax,eay,ebx,eby,ecx,ecy,edx,edy)
+
+#Fg("orange")
+ #FillPolygon(dax,day,dbx,dby,dcx,dcy,ddx,ddy)
+
+Fg("blue")
+  FillPolygon(fax,fay,fbx,fby,fcx,fcy,fdx,fdy)
+
+Fg("1000,1000,31000")
+ FillPolygon(cax,cay,cbx,cby,ccx,ccy,cdx,cdy)
+
+Fg("1000,1000,21000")
+ FillPolygon(aax,aay,abx,aby,acx,acy,adx,ady)
+
+Fg("1000,1000,41000")
+ FillPolygon(bax,bay,bbx,bby,bcx,bcy,bdx,bdy)
+
+end
+
+procedure cube02(c,b,a)
+
+xc := 1
+
+bz := a
+az := 300
+cz := 100
+
+(qax := 10 + c,qbx := 1025 + c,qcx := 1025 + c,qdx := 10 + c,qay := 500 + b,qby := 500 + b,qcy := 50 + b,qdy := 50 + b)
+ 
+(wax := 10 + c,wbx := 10 + c,wcx := 10 + c,wdx := 10 + c,way := 500 + b,wby := 500 + b,wcy := 50 + b,wdy := 50 + b)
+
+(eax := 800 + c,ebx := 800 + c,ecx := 800 + c,edx := 800 + c,eay := 500 + b,eby := 500 + b,ecy := 50 + b,edy := 50 + b)
+
+(rax := 75 + c,rbx := 125 + c,rcx := 125 + c,rdx := 75 + c,ray := 100 + b,rby := 100 + b,rcy := 50 + b,rdy := 50 + b)
+
+(tax := 75 + c,tbx := 75 + c,tcx := 125 + c,tdx := 125 + c,tay := 100 + b,tby := 100 + b,tcy := 100 + b,tdy := 100 + b)
+
+(yax := 125 + c,ybx := 125 + c,ycx := 125 + c,ydx := 125 + c,yay := 100 + b,yby := 100 + b,ycy := 50 + b,ydy := 50 + b)
+
+aax := (qax * bz/az) 
+abx := (qbx * bz/az)
+acx := (qcx * bz/az)
+adx := (qdx * bz/az) 
+
+aay := (qay * bz/az) 
+aby := (qby * bz/az) 
+acy := (qcy * bz/az)
+ady := (qdy * bz/az)
+
+bax := (wax * bz/az)
+bbx := (wbx * bz/cz)
+bcx := (wcx * bz/cz) 
+bdx := (wdx * bz/az) 
+
+bay := (way * bz/az)
+bby := (wby * bz/cz) 
+bcy := (wcy * bz/cz) 
+bdy := (wdy * bz/az)
+
+cax := (eax * bz/az) 
+cbx := (ebx * bz/cz) 
+ccx := (ecx * bz/cz) 
+cdx := (edx * bz/az)
+
+cay := (eay * bz/az) 
+cby := (eby * bz/cz) 
+ccy := (ecy * bz/cz) 
+cdy := (edy * bz/az)
+
+dax := (qax * bz/cz)
+dbx := (qbx * bz/cz)
+dcx := (qcx * bz/cz)
+ddx := (qdx * bz/cz) 
+
+day := (qay * bz/cz) 
+dby := (qby * bz/cz) 
+dcy := (qcy * bz/cz) 
+ddy := (qdy * bz/cz)
+
+eax := (tax * bz/az) 
+ebx := (tbx * bz/cz) 
+ecx := (tcx * bz/cz) 
+edx := (tdx * bz/az) 
+
+eay := (tay * bz/az)
+eby := (tby * bz/cz) 
+ecy := (tcy * bz/cz)
+edy := (tdy * bz/az)
+
+fax := (yax * bz/az) 
+fbx := (ybx * bz/cz) 
+fcx := (ycx * bz/cz)
+fdx := (ydx * bz/az)
+
+fay := (yay * bz/az)
+fby := (yby * bz/cz) 
+fcy := (ycy * bz/cz) 
+fdy := (ydy * bz/az)
+
+#Fg("red")
+ #FillPolygon(eax,eay,ebx,eby,ecx,ecy,edx,edy)
+
+#Fg("orange")
+ #FillPolygon(dax,day,dbx,dby,dcx,dcy,ddx,ddy)
+
+#Fg("blue")
+  #FillPolygon(fax,fay,fbx,fby,fcx,fcy,fdx,fdy)
+
+#Fg("green")
+ #FillPolygon(aax,aay,abx,aby,acx,acy,adx,ady)
+
+#Fg("blue")
+ #FillPolygon(bax,bay,bbx,bby,bcx,bcy,bdx,bdy)
+
+#Fg("red")
+ #FillPolygon(cax,cay,cbx,cby,ccx,ccy,cdx,cdy)
+
+Fg("20000,10000,5000")
+ FillPolygon(aax,aay,abx,aby,acx,acy,adx,ady)
+
+Fg("30000,5000,10000")
+ FillPolygon(bax,bay,bbx,bby,bcx,bcy,bdx,bdy)
+
+Fg("10000,5000,5000")
+ FillPolygon(cax,cay,cbx,cby,ccx,ccy,cdx,cdy)
+
+end
+
+
+procedure cylinder02(c,b,a)
+
+bz := a
+az := 100
+cz := 45
+
+qax := 50 + c
+qbx := 50 + c 
+qcx := 150 + c
+qdx := 150 + c 
+qay := 80 + b 
+qby := 80 + b 
+qcy := 80 + b 
+qdy := 80 + b
+
+wax := 15 + c
+wbx := 15 + c
+wcx := 50 + c
+wdx := 50 + c
+way := 150 + b
+wby := 150 + b
+wcy := 80 + b
+wdy := 80 + b
+
+eax := 15 + c
+ebx := 15 + c
+ecx := 15 + c
+edx := 15 + c
+eay := 200 + b
+eby := 200 + b
+ecy := 150 + b
+edy := 150 + b
+
+rax := 50 + c
+rbx := 50 + c
+rcx := 15 + c
+rdx := 15 + c
+ray := 250 + b
+rby := 250 + b
+rcy := 200 + b
+rdy := 200 + b
+
+tax := 150 + c
+tbx := 150 + c
+tcx := 50 + c
+tdx := 50 + c
+tay := 250 + b
+tby := 250 + b
+tcy := 250 + b
+tdy := 250 + b
+
+#########################################################
+
+yax := 200 + c
+ybx := 200 + c
+ycx := 150 + c
+ydx := 150 + c
+yay := 200 + b
+yby := 200 + b
+ycy := 250 + b
+ydy := 250 + b
+
+zax := 200 + c
+zbx := 200 + c
+zcx := 200 + c
+zdx := 200 + c
+zay := 150 + b
+zby := 150 + b
+zcy := 200 + b
+zdy := 200 + b
+
+pax := 150 + c
+pbx := 150 + c
+pcx := 200 + c
+pdx := 200 + c
+pay := 80 + b
+pby := 80 + b
+pcy := 150 + b
+pdy := 150 + b
+
+#########################################################
+
+aax := (qax * bz/az) 
+abx := (qbx * bz/cz)
+acx := (qcx * bz/cz)
+adx := (qdx * bz/az) 
+
+aay := (qay * bz/az) 
+aby := (qby * bz/cz) 
+acy := (qcy * bz/cz)
+ady := (qdy * bz/az)
+
+bax := (wax * bz/az)
+bbx := (wbx * bz/cz)
+bcx := (wcx * bz/cz) 
+bdx := (wdx * bz/az) 
+
+bay := (way * bz/az)
+bby := (wby * bz/cz) 
+bcy := (wcy * bz/cz) 
+bdy := (wdy * bz/az)
+
+cax := (eax * bz/az) 
+cbx := (ebx * bz/cz) 
+ccx := (ecx * bz/cz) 
+cdx := (edx * bz/az)
+
+cay := (eay * bz/az) 
+cby := (eby * bz/cz) 
+ccy := (ecy * bz/cz) 
+cdy := (edy * bz/az)
+
+dax := (rax * bz/az)
+dbx := (rbx * bz/cz)
+dcx := (rcx * bz/cz)
+ddx := (rdx * bz/az) 
+
+day := (ray * bz/az) 
+dby := (rby * bz/cz) 
+dcy := (rcy * bz/cz) 
+ddy := (rdy * bz/az)
+
+eax := (tax * bz/az) 
+ebx := (tbx * bz/cz) 
+ecx := (tcx * bz/cz) 
+edx := (tdx * bz/az) 
+
+eay := (tay * bz/az)
+eby := (tby * bz/cz) 
+ecy := (tcy * bz/cz)
+edy := (tdy * bz/az)
+
+#######################################
+
+fax := (yax * bz/az) 
+fbx := (ybx * bz/cz) 
+fcx := (ycx * bz/cz)
+fdx := (ydx * bz/az)
+
+fay := (yay * bz/az)
+fby := (yby * bz/cz) 
+fcy := (ycy * bz/cz) 
+fdy := (ydy * bz/az)
+
+zax := (zax * bz/az) 
+zbx := (zbx * bz/cz) 
+zcx := (zcx * bz/cz)
+zdx := (zdx * bz/az)
+
+zay := (zay * bz/az)
+zby := (zby * bz/cz) 
+zcy := (zcy * bz/cz) 
+zdy := (zdy * bz/az)
+
+pax := (pax * bz/az) 
+pbx := (pbx * bz/cz) 
+pcx := (pcx * bz/cz)
+pdx := (pdx * bz/az)
+
+pay := (pay * bz/az)
+pby := (pby * bz/cz) 
+pcy := (pcy * bz/cz) 
+pdy := (pdy * bz/az)
+
+
+Fg("4000,24000,4000")
+ FillPolygon(pax,pay,pbx,pby,pcx,pcy,pdx,pdy)
+
+Fg("8000,28000,8000")
+ FillPolygon(zax,zay,zbx,zby,zcx,zcy,zdx,zdy)
+
+Fg("8000,18000,8000")
+ FillPolygon(fax,fay,fbx,fby,fcx,fcy,fdx,fdy)
+
+Fg("4000,24000,4000")
+ FillPolygon(eax,eay,ebx,eby,ecx,ecy,edx,edy)
+
+Fg("8000,28000,8000")
+ FillPolygon(dax,day,dbx,dby,dcx,dcy,ddx,ddy)
+
+Fg("8000,18000,8000")
+ FillPolygon(aax,aay,abx,aby,acx,acy,adx,ady)
+
+Fg("30000,60000,30000")
+ FillPolygon(cax,cay,cbx,cby,ccx,ccy,cdx,cdy)
+
+Fg("4000,14000,4000")
+ FillPolygon(bax,bay,bbx,bby,bcx,bcy,bdx,bdy)
+
+end
+
+procedure cube03(c,b,a)
+
+xc := 1
+
+bz := a
+az := 100
+cz := 120
+
+(qax := 55 + c,qbx := 325 + c,qcx := 325 + c,qdx := 55 + c,qay := -10 + b,qby := -10 + b,qcy := 5 + b,qdy := 5 + b)
+ 
+(wax := 55 + c,wbx := 55 + c,wcx := 325 + c,wdx := 325 + c,way := -10 + b,wby := -10 + b,wcy := -10 + b,wdy := -10 + b)
+
+(eax := 55 + c,ebx := 55 + c,ecx := 55 + c,edx := 55 + c,eay := -10 + b,eby := -10 + b,ecy := 5 + b,edy := 5 + b)
+
+(rax := 55 + c,rbx := 325 + c,rcx := 325 + c,rdx := 55 + c,ray := -10 + b,rby := -10 + b,rcy := 5 + b,rdy := 5 + b)
+
+(tax := 55 + c,tbx := 55 + c,tcx := 325 + c,tdx := 325 + c,tay := -10 + b,tby := -10 + b,tcy := -10 + b,tdy := -10 + b)
+
+(yax := 325 + c,ybx := 325 + c,ycx := 325 + c,ydx := 325 + c,yay := -10 + b,yby := -10 + b,ycy := 5 + b,ydy := 5 + b)
+
+aax := (qax * bz/az) 
+abx := (qbx * bz/az)
+acx := (qcx * bz/az)
+
+adx := (qdx * bz/az) 
+
+aay := (qay * bz/az) 
+aby := (qby * bz/az) 
+acy := (qcy * bz/az)
+ady := (qdy * bz/az)
+
+bax := (wax * bz/az)
+bbx := (wbx * bz/cz)
+bcx := (wcx * bz/cz) 
+bdx := (wdx * bz/az) 
+
+bay := (way * bz/az)
+bby := (wby * bz/cz) 
+bcy := (wcy * bz/cz) 
+bdy := (wdy * bz/az)
+
+cax := (eax * bz/az) 
+cbx := (ebx * bz/cz) 
+ccx := (ecx * bz/cz) 
+cdx := (edx * bz/az)
+
+cay := (eay * bz/az) 
+cby := (eby * bz/cz) 
+ccy := (ecy * bz/cz) 
+cdy := (edy * bz/az)
+
+dax := (qax * bz/cz)
+dbx := (qbx * bz/cz)
+dcx := (qcx * bz/cz)
+ddx := (qdx * bz/cz) 
+
+day := (qay * bz/cz) 
+dby := (qby * bz/cz) 
+dcy := (qcy * bz/cz) 
+ddy := (qdy * bz/cz)
+
+eax := (tax * bz/az) 
+ebx := (tbx * bz/cz) 
+ecx := (tcx * bz/cz) 
+edx := (tdx * bz/az) 
+
+eay := (tay * bz/az)
+eby := (tby * bz/cz) 
+ecy := (tcy * bz/cz)
+edy := (tdy * bz/az)
+
+fax := (yax * bz/az) 
+fbx := (ybx * bz/cz) 
+fcx := (ycx * bz/cz)
+fdx := (ydx * bz/az)
+
+fay := (yay * bz/az)
+fby := (yby * bz/cz) 
+fcy := (ycy * bz/cz) 
+fdy := (ydy * bz/az)
+
+#facets presently not being used
+
+#Fg("red")
+ #FillPolygon(eax,eay,ebx,eby,ecx,ecy,edx,edy)
+
+#Fg("orange")
+ #FillPolygon(dax,day,dbx,dby,dcx,dcy,ddx,ddy)
+
+Fg("40000,40000,40000")
+  FillPolygon(fax,fay,fbx,fby,fcx,fcy,fdx,fdy)
+
+Fg("30000,5000,5000")
+ FillPolygon(cax,cay,cbx,cby,ccx,ccy,cdx,cdy)
+
+Fg("40000,5000,5000")
+ FillPolygon(aax,aay,abx,aby,acx,acy,adx,ady)
+
+Fg("40000,1000,1000")
+ FillPolygon(bax,bay,bbx,bby,bcx,bcy,bdx,bdy)
+
+end
+
+procedure cube04(c,b,a)
+
+xc := 1
+
+bz := a
+az := 100
+cz := 150
+
+(qax := 155 + c,qbx := 55 + c,qcx := 55 + c,qdx := 155 + c,qay := -10 + b,qby := -10 + b,qcy := 5 + b,qdy := 5 + b)
+ 
+(wax := 155 + c,wbx := 155 + c,wcx := 55 + c,wdx := 55 + c,way := -10 + b,wby := -10 + b,wcy := -10 + b,wdy := -10 + b)
+
+(eax := 155 + c,ebx := 155 + c,ecx := 155 + c,edx := 155 + c,eay := -10 + b,eby := -10 + b,ecy := 5 + b,edy := 5 + b)
+
+(rax := 155 + c,rbx := 55 + c,rcx := 55 + c,rdx := 155 + c,ray := -10 + b,rby := -10 + b,rcy := 5 + b,rdy := 5 + b)
+
+(tax := 155 + c,tbx := 155 + c,tcx := 55 + c,tdx := 55 + c,tay := -10 + b,tby := -10 + b,tcy := -10 + b,tdy := -10 + b)
+
+(yax := 55 + c,ybx := 55 + c,ycx := 55 + c,ydx := 55 + c,yay := -10 + b,yby := -10 + b,ycy := 5 + b,ydy := 5 + b)
+
+aax := (qax * bz/az) 
+abx := (qbx * bz/az)
+acx := (qcx * bz/az)
+adx := (qdx * bz/az) 
+
+aay := (qay * bz/az) 
+aby := (qby * bz/az) 
+acy := (qcy * bz/az)
+ady := (qdy * bz/az)
+
+bax := (wax * bz/az)
+bbx := (wbx * bz/cz)
+bcx := (wcx * bz/cz) 
+bdx := (wdx * bz/az) 
+
+bay := (way * bz/az)
+bby := (wby * bz/cz) 
+bcy := (wcy * bz/cz) 
+bdy := (wdy * bz/az)
+
+cax := (eax * bz/az) 
+cbx := (ebx * bz/cz) 
+ccx := (ecx * bz/cz) 
+cdx := (edx * bz/az)
+
+cay := (eay * bz/az) 
+cby := (eby * bz/cz) 
+ccy := (ecy * bz/cz) 
+cdy := (edy * bz/az)
+
+dax := (qax * bz/cz)
+dbx := (qbx * bz/cz)
+dcx := (qcx * bz/cz)
+ddx := (qdx * bz/cz) 
+
+day := (qay * bz/cz) 
+dby := (qby * bz/cz) 
+dcy := (qcy * bz/cz) 
+ddy := (qdy * bz/cz)
+
+eax := (tax * bz/az) 
+ebx := (tbx * bz/cz) 
+ecx := (tcx * bz/cz) 
+edx := (tdx * bz/az) 
+
+eay := (tay * bz/az)
+eby := (tby * bz/cz) 
+ecy := (tcy * bz/cz)
+edy := (tdy * bz/az)
+
+fax := (yax * bz/az) 
+fbx := (ybx * bz/cz) 
+fcx := (ycx * bz/cz)
+fdx := (ydx * bz/az)
+
+fay := (yay * bz/az)
+fby := (yby * bz/cz) 
+fcy := (ycy * bz/cz) 
+fdy := (ydy * bz/az)
+
+#Fg("red")
+ #FillPolygon(eax,eay,ebx,eby,ecx,ecy,edx,edy)
+
+#Fg("orange")
+ #FillPolygon(dax,day,dbx,dby,dcx,dcy,ddx,ddy)
+
+#Fg("blue")
+  #FillPolygon(fax,fay,fbx,fby,fcx,fcy,fdx,fdy)
+
+Fg("30000,30000,30000")
+ FillPolygon(cax,cay,cbx,cby,ccx,ccy,cdx,cdy)
+
+Fg("10000,10000,10000")
+ FillPolygon(aax,aay,abx,aby,acx,acy,adx,ady)
+
+Fg("40000,40000,40000")
+ FillPolygon(bax,bay,bbx,bby,bcx,bcy,bdx,bdy)
+
+end
+
+procedure cube05(c,b,a)
+
+xc := 1
+
+bz := a
+az := 100
+cz := 102
+
+(qax := 75 + c,qbx := 125 + c,qcx := 125 + c,qdx := 75 + c,qay := 100 + b,qby := 100 + b,qcy := 50 + b,qdy := 50 + b)
+ 
+(wax := 75 + c,wbx := 75 + c,wcx := 125 + c,wdx := 125 + c,way := 50 + b,wby := 50 + b,wcy := 50 + b,wdy := 50 + b)
+
+(eax := 75 + c,ebx := 75 + c,ecx := 75 + c,edx := 75 + c,eay := 100 + b,eby := 100 + b,ecy := 50 + b,edy := 50 + b)
+
+(rax := 75 + c,rbx := 125 + c,rcx := 125 + c,rdx := 75 + c,ray := 100 + b,rby := 100 + b,rcy := 50 + b,rdy := 50 + b)
+
+(tax := 75 + c,tbx := 75 + c,tcx := 125 + c,tdx := 125 + c,tay := 100 + b,tby := 100 + b,tcy := 100 + b,tdy := 100 + b)
+
+(yax := 125 + c,ybx := 125 + c,ycx := 125 + c,ydx := 125 + c,yay := 100 + b,yby := 100 + b,ycy := 50 + b,ydy := 50 + b)
+
+aax := (qax * bz/az) 
+abx := (qbx * bz/az)
+acx := (qcx * bz/az)
+
+adx := (qdx * bz/az) 
+
+aay := (qay * bz/az) 
+aby := (qby * bz/az) 
+acy := (qcy * bz/az)
+ady := (qdy * bz/az)
+
+bax := (wax * bz/az)
+bbx := (wbx * bz/cz)
+bcx := (wcx * bz/cz) 
+bdx := (wdx * bz/az) 
+
+bay := (way * bz/az)
+bby := (wby * bz/cz) 
+bcy := (wcy * bz/cz) 
+bdy := (wdy * bz/az)
+
+cax := (eax * bz/az) 
+cbx := (ebx * bz/cz) 
+ccx := (ecx * bz/cz) 
+cdx := (edx * bz/az)
+
+cay := (eay * bz/az) 
+cby := (eby * bz/cz) 
+ccy := (ecy * bz/cz) 
+cdy := (edy * bz/az)
+
+dax := (qax * bz/cz)
+dbx := (qbx * bz/cz)
+dcx := (qcx * bz/cz)
+ddx := (qdx * bz/cz) 
+
+day := (qay * bz/cz) 
+dby := (qby * bz/cz) 
+dcy := (qcy * bz/cz) 
+ddy := (qdy * bz/cz)
+
+eax := (tax * bz/az) 
+ebx := (tbx * bz/cz) 
+ecx := (tcx * bz/cz) 
+edx := (tdx * bz/az) 
+
+eay := (tay * bz/az)
+eby := (tby * bz/cz) 
+ecy := (tcy * bz/cz)
+edy := (tdy * bz/az)
+
+fax := (yax * bz/az) 
+fbx := (ybx * bz/cz) 
+fcx := (ycx * bz/cz)
+fdx := (ydx * bz/az)
+
+fay := (yay * bz/az)
+fby := (yby * bz/cz) 
+fcy := (ycy * bz/cz) 
+fdy := (ydy * bz/az)
+
+#Fg("red")
+ #FillPolygon(eax,eay,ebx,eby,ecx,ecy,edx,edy)
+
+#Fg("orange")
+ #FillPolygon(dax,day,dbx,dby,dcx,dcy,ddx,ddy)
+
+Fg("2000,2000,2000")
+  FillPolygon(fax,fay,fbx,fby,fcx,fcy,fdx,fdy)
+
+Fg("1000,50000,1000")
+ FillPolygon(cax,cay,cbx,cby,ccx,ccy,cdx,cdy)
+
+Fg("100,50000,100")
+ FillPolygon(aax,aay,abx,aby,acx,acy,adx,ady)
+
+Fg("9000,9000,9000")
+ FillPolygon(bax,bay,bbx,bby,bcx,bcy,bdx,bdy)
+
+end
+
+procedure cube06(c,b,a)
+
+xc := 1
+
+bz := a
+az := 100
+cz := 110
+
+(qax := 75 + c,qbx := 225 + c,qcx := 225 + c,qdx := 75 + c,qay := 150 + b,qby := 150 + b,qcy := 50 + b,qdy := 50 + b)
+ 
+(wax := 75 + c,wbx := 75 + c,wcx := 225 + c,wdx := 225 + c,way := 50 + b,wby := 50 + b,wcy := 50 + b,wdy := 50 + b)
+
+(eax := 75 + c,ebx := 75 + c,ecx := 75 + c,edx := 75 + c,eay := 150 + b,eby := 150 + b,ecy := 50 + b,edy := 50 + b)
+
+(rax := 75 + c,rbx := 225 + c,rcx := 225 + c,rdx := 75 + c,ray := 150 + b,rby := 150 + b,rcy := 50 + b,rdy := 50 + b)
+
+(tax := 75 + c,tbx := 75 + c,tcx := 225 + c,tdx := 125 + c,tay := 150 + b,tby := 150 + b,tcy := 150 + b,tdy := 150 + b)
+
+(yax := 225 + c,ybx := 225 + c,ycx := 225 + c,ydx := 225 + c,yay := 150 + b,yby := 150 + b,ycy := 50 + b,ydy := 50 + b)
+
+aax := (qax * bz/az) 
+abx := (qbx * bz/az)
+acx := (qcx * bz/az)
+
+adx := (qdx * bz/az) 
+
+aay := (qay * bz/az) 
+aby := (qby * bz/az) 
+acy := (qcy * bz/az)
+ady := (qdy * bz/az)
+
+bax := (wax * bz/az)
+bbx := (wbx * bz/cz)
+bcx := (wcx * bz/cz) 
+bdx := (wdx * bz/az) 
+
+bay := (way * bz/az)
+bby := (wby * bz/cz) 
+bcy := (wcy * bz/cz) 
+bdy := (wdy * bz/az)
+
+cax := (eax * bz/az) 
+cbx := (ebx * bz/cz) 
+ccx := (ecx * bz/cz) 
+cdx := (edx * bz/az)
+
+cay := (eay * bz/az) 
+cby := (eby * bz/cz) 
+ccy := (ecy * bz/cz) 
+cdy := (edy * bz/az)
+
+dax := (qax * bz/cz)
+dbx := (qbx * bz/cz)
+dcx := (qcx * bz/cz)
+ddx := (qdx * bz/cz) 
+
+day := (qay * bz/cz) 
+dby := (qby * bz/cz) 
+dcy := (qcy * bz/cz) 
+ddy := (qdy * bz/cz)
+
+eax := (tax * bz/az) 
+ebx := (tbx * bz/cz) 
+ecx := (tcx * bz/cz) 
+edx := (tdx * bz/az) 
+
+eay := (tay * bz/az)
+eby := (tby * bz/cz) 
+ecy := (tcy * bz/cz)
+edy := (tdy * bz/az)
+
+fax := (yax * bz/az) 
+fbx := (ybx * bz/cz) 
+fcx := (ycx * bz/cz)
+fdx := (ydx * bz/az)
+
+fay := (yay * bz/az)
+fby := (yby * bz/cz) 
+fcy := (ycy * bz/cz) 
+fdy := (ydy * bz/az)
+
+#Fg("red")
+ #FillPolygon(eax,eay,ebx,eby,ecx,ecy,edx,edy)
+
+#Fg("orange")
+ #FillPolygon(dax,day,dbx,dby,dcx,dcy,ddx,ddy)
+
+Fg("blue")
+  FillPolygon(fax,fay,fbx,fby,fcx,fcy,fdx,fdy)
+
+Fg("20000,16000,0")
+ FillPolygon(cax,cay,cbx,cby,ccx,ccy,cdx,cdy)
+
+Fg("15000,9000,0")
+ FillPolygon(aax,aay,abx,aby,acx,acy,adx,ady)
+
+Fg("32700,16000,0")
+ FillPolygon(bax,bay,bbx,bby,bcx,bcy,bdx,bdy)
+
+end
+
+
+

@@ -1,0 +1,95 @@
+############################################################################
+#
+#	File:     pointgrid.icn
+#
+#	Subject:  Program to make point grid w/colors
+#
+#	Author:   Shawn Fratis (shawnfratis@gmail.com)
+#
+#	Date:     July 5, 2020
+#
+############################################################################
+#
+#   This file is in the public domain.
+#
+############################################################################
+#
+#   This procedure creates a graduated color 10x10 grid of points.
+#   WARNING: this takes a while to process (1-2 mins depending on processor)!  
+#
+############################################################################
+
+link wopen
+link color
+link graphics
+link numbers
+link colrlist
+link random
+
+procedure main()
+  
+ w:= open("Point Grid", "gl", "size=600,600", "bg=black") | stop("Can't Open 3D window\n")
+
+  pgrid_main(w)
+
+    Eye(w, 15,0,15, 5,6,0, 0,1,0)
+
+    Refresh(w)
+
+ Event(w)
+
+end
+
+procedure pgrid_main(w)
+    
+   $define Palette "c5"			
+
+    $define DH 30.0 		# change in hue per pixel
+    $define DL 10.0 		# change in lightness per pixel
+
+    p := Palette
+
+    every i := 1 to 10 by 1 do {
+    every o := 1 to 10 by 1 do { 
+    every q := 1 to 10 by 1 do {
+
+     h := integer(i * DH) || ":"
+      
+    l := 100 - integer(o * DL)
+    hls := h || l || ":100"
+    c := HLSValue(hls)
+    c := PaletteColor(p, PaletteKey(\p, c))
+             
+    Fg(w,c)
+    DrawPoint(w,i,q,o)
+
+  }
+ }
+} 
+  
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
