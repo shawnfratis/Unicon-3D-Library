@@ -22,7 +22,7 @@ procedure main()
 
   w:= open("textured sphere", "gl", "size=600,600", "bg=black", "buffer=on") | stop("Can't Open 3D window\n")
 
-  WAttrib(w, "slices=45", "rings=45" )
+  WAttrib(w, "slices=45", "rings=45" ) #these vals increase/decrease tesselation
     
   WAttrib(w,"texmode=on","texture=1.png")
 

@@ -49,9 +49,9 @@ procedure pgrid_main(w)
 
     p := Palette
 
-    every i := 1 to 10 by 1 do {
-    every o := 1 to 10 by 1 do { 
-    every q := 1 to 10 by 1 do {
+    every i := 1 to 10 by 1 do { #use these to increase/decrease matrice size
+    every o := 1 to 10 by 1 do { #use these to increase/decrease matrice size
+    every q := 1 to 10 by 1 do { #use these to increase/decrease matrice size
 
      h := integer(i * DH) || ":"
       

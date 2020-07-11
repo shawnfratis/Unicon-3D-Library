@@ -16,6 +16,7 @@
 #
 #  This procedure creates a cube with image textures that
 #  can be assigned to individual facets. 
+#  NOTE: 1.png is the current tex map assigned to all facets.
 #
 ############################################################################
 
@@ -171,6 +172,8 @@ end
 
 
 procedure texcubeinx(w,va,vb,vc,vd,ve,vf,vg,vh,vi)
+
+    #these parameters can be changed to create voxel-type arrays
 
     q := [ve,vf,vg,vh,vi] 
 
